@@ -7,7 +7,8 @@
     "node-static": "~0.7.2",
     "require": "~0.5.0",
     "sockjs": "~0.3.8",
-    "coffee-script": "~1.6.3"
+    "coffee-script": "~1.6.3",
+    "lodash-node": "~2.2.1"
   },
   "devDependencies": {},
   "scripts": {
