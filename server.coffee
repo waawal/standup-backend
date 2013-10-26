@@ -20,5 +20,7 @@ server.addListener 'upgrade', (req, res) ->
 sockjs_sock.installHandlers(server,
     prefix: '/sock')
 
-console.log(' [*] Listening on 0.0.0.0:9999')
-server.listen(9999, '0.0.0.0')
+
+server_port = process.env.PORT or 9999
+console.log(" [*] Listening on 0.0.0.0:#{ server_port }")
+server.listen(process.env.PORT or 9999, '0.0.0.0')
