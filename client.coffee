@@ -29,11 +29,25 @@ send_join = (sock, room, name) ->
     room: room
     name: name
 
+send_welcome = (sock, name) ->
+  send_msg sock, 'welcome',
+    name: name
+
+send_alive = (sock, name) ->
+  send_msg sock, 'alive',
+    name: name
+
 send_set = (sock, time, duration, state) ->
   send_msg sock, 'set',
     time: time
     duration: duration
     state: state
+
+send_start = (sock) ->
+  send_msg sock, 'start'
+
+send_stop = (sock) ->
+  send_msg sock, 'stop'
 
 
 # sock.js
@@ -44,7 +58,7 @@ sock = new SockJS(srv_loc)
 
 
 sock.onopen = (conn) ->
-  console.log('open:', sock.protocol)
+  console.log('Connection established:', sock.protocol)
 
   # join
   send_join sock, conf_room, conf_name
@@ -56,14 +70,28 @@ sock.onmessage = (message) ->
 
     # handle JOIN
     if o.msg == 'join'
-      console.log(o.name + ' joins the standup')
+      console.log(o.name + ' joins the standup.')
+      send_welcome(sock, conf_name)
       send_set(sock, new Date().getTime(), duration=900, state='paused')
 
     # handle STATE
     else if o.msg == 'set'
-      console.log('receive set: time=' + o.time +
+      console.log('Receive set: time=' + o.time +
                   ' duration=' + o.duration +
                   ' state=' + o.state)
+
+    # handle WELCOME
+    else if o.msg == 'welcome'
+      console.log(o.name + ' welcomes you.')
+
+    # handle KEEPALIVE
+    else if o.msg == 'keepalive'
+      console.log('keepalive')
+      send_alive(sock, conf_name)
+
+    # handle ALIVE
+    else if o.msg == 'alive'
+      console.log(o.name + ' is alive.')
 
 
   catch error

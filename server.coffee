@@ -38,6 +38,12 @@ remove_conn = (conn) ->
 
 sockjs_sock.on 'connection', (conn) ->
 
+  interval = setInterval (->
+    console.log 'keepalive'
+    conn.write '{"msg": "keepalive"}'
+  ),
+        20 * 1000
+
   conn.on 'data', (msg) ->
     console.log('recv:', msg)
     try

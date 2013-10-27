@@ -1,0 +1,28 @@
+* Messages
+** DONE join
+{
+    'msg': 'join',
+    'room': '12',
+    'name': 'Jacek',
+}
+** DONE welcome
+{
+    'msg': 'welcome',
+    'name': 'Daniel',
+}
+** DONE set
+{
+    'msg': 'set',
+    'time': 900,  # seconds
+    'duration': 900,  # seconds
+    'direction': 'down',  # TODO:v02
+    'state': 'running',  # running|paused|#TODO:v02:stopped
+}
+** DONE start
+{
+    'msg': 'start',
+}
+** DONE stop
+{
+    'msg': 'stop',
+}
