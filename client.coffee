@@ -33,6 +33,10 @@ send_welcome = (sock, name) ->
   send_msg sock, 'welcome',
     name: name
 
+send_alive = (sock, name) ->
+  send_msg sock, 'alive',
+    name: name
+
 send_set = (sock, time, duration, state) ->
   send_msg sock, 'set',
     time: time
@@ -79,6 +83,15 @@ sock.onmessage = (message) ->
     # handle WELCOME
     else if o.msg == 'welcome'
       console.log(o.name + ' welcomes you.')
+
+    # handle KEEPALIVE
+    else if o.msg == 'keepalive'
+      console.log('keepalive')
+      send_alive(sock, conf_name)
+
+    # handle ALIVE
+    else if o.msg == 'alive'
+      console.log(o.name + ' is alive.')
 
 
   catch error
