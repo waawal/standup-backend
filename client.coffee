@@ -11,8 +11,9 @@ hash = (pairs) ->
 
 query_str = location.search.substr(1).split('&')
 params = hash (q.split('=') for q in query_str)
-conf_name = hash['name'] or 'anonymous'
 conf_room = hash['room'] or 'default'
+conf_name = hash['name'] or 'anonymous'
+conf_contact = hash['contact'] or null
 
 
 # messages
@@ -28,10 +29,12 @@ send_join = (sock, room, name) ->
   send_msg sock, 'join',
     room: room
     name: name
+    contact: conf_contact
 
 send_welcome = (sock, name) ->
   send_msg sock, 'welcome',
     name: name
+    contact: conf_contact
 
 send_alive = (sock, name) ->
   send_msg sock, 'alive',
@@ -48,6 +51,9 @@ send_start = (sock) ->
 
 send_stop = (sock) ->
   send_msg sock, 'stop'
+
+send_call = (sock) ->
+  send_msg sock, 'call'
 
 
 # sock.js
