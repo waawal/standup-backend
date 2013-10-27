@@ -26,3 +26,8 @@
 {
     'msg': 'stop',
 }
+
+
+* JS Console Commands
+setTimeout(function() {send_hangup(sock);}, 10000);
+send_call(sock);

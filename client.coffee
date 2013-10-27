@@ -39,6 +39,7 @@ send_welcome = (sock, name) ->
 send_alive = (sock, name) ->
   send_msg sock, 'alive',
     name: name
+    contact: conf_contact
 
 send_set = (sock, time, duration, state) ->
   send_msg sock, 'set',
@@ -54,6 +55,9 @@ send_stop = (sock) ->
 
 send_call = (sock) ->
   send_msg sock, 'call'
+
+send_hangup = (sock) ->
+  send_msg sock, 'hangup'
 
 
 # sock.js
